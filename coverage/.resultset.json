@@ -1,0 +1,60 @@
+{
+  "RSpec": {
+    "coverage": {
+      "/Users/Jared/Turing/4module/projects/idea-box/app/helpers/application_helper.rb": [
+        1,
+        null
+      ],
+      "/Users/Jared/Turing/4module/projects/idea-box/app/models/idea.rb": [
+        1,
+        1,
+        1,
+        null,
+        1,
+        11,
+        null
+      ],
+      "/Users/Jared/Turing/4module/projects/idea-box/app/controllers/public_controller.rb": [
+        1,
+        1,
+        null,
+        null,
+        null
+      ],
+      "/Users/Jared/Turing/4module/projects/idea-box/app/controllers/application_controller.rb": [
+        1,
+        null,
+        null,
+        1,
+        null
+      ],
+      "/Users/Jared/Turing/4module/projects/idea-box/app/controllers/api/v1/ideas_controller.rb": [
+        1,
+        1,
+        null,
+        1,
+        2,
+        null,
+        null,
+        1,
+        1,
+        null,
+        null,
+        1,
+        null,
+        1,
+        1,
+        null,
+        null
+      ],
+      "/Users/Jared/Turing/4module/projects/idea-box/app/controllers/api/api_controller.rb": [
+        1,
+        null,
+        null,
+        1,
+        null
+      ]
+    },
+    "timestamp": 1467156366
+  }
+}
