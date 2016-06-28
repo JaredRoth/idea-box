@@ -11,7 +11,7 @@
         1,
         null,
         1,
-        5,
+        11,
         null
       ],
       "/Users/Jared/Turing/4module/projects/idea-box/app/controllers/public_controller.rb": [
@@ -33,6 +33,16 @@
         1,
         null,
         1,
+        2,
+        null,
+        null,
+        1,
+        1,
+        null,
+        null,
+        1,
+        null,
+        1,
         1,
         null,
         null
@@ -45,6 +55,6 @@
         null
       ]
     },
-    "timestamp": 1467129772
+    "timestamp": 1467156366
   }
 }
