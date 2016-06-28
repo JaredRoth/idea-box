@@ -1,7 +1,18 @@
 FactoryGirl.define do
   factory :idea do
-    title "Generic Title"
-    body "Generic Body"
-    quality "swill"
+    sequence :title do |n|
+      "Generic Title #{n}"
+    end
+    sequence :body do |n|
+      "Generic Body #{n}"
+    end
+    sequence :quality do |n|
+      "Generic Title #{n}"
+    end
+    sequence :quality, ['swill',
+                        'plausible',
+                        'genius'].cycle do |quality|
+      quality
+    end
   end
 end
