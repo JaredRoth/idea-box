@@ -72,11 +72,11 @@ function thumbDown() {
 }
 
 function showQualityChange(quality, direction) {
-  var up = {  "swill": "Plausible",
+  var up = {  "Swill": "Plausible",
               "Plausible": "Genius",
               "Genius": "Genius"}
-  var down = {"swill": "swill",
-              "Plausible": "swill",
+  var down = {"Swill": "Swill",
+              "Plausible": "Swill",
               "Genius": "Plausible"}
   var oldQuality = quality.text()
   var newQuality = eval(direction)[oldQuality]
@@ -86,7 +86,7 @@ function showQualityChange(quality, direction) {
 function printIdea(idea) {
   return "<div class='idea row' id='idea" + idea.id + "' data-id='" + idea.id +
   "'><div class='title'>" + idea.title + "</div><div class='body'>" + idea.body +
-  "</div>" + "Quality: <span class='quality'>" + idea.quality + "</span>" +
+  "</div>" + "Quality: <span class='quality'>" + _.capitalize(idea.quality) + "</span>" +
   " <i class='tiny material-icons thumb_down'>thumb_down</i> " +
   "<i class='tiny material-icons thumb_up'>thumb_up</i>" +
   "<div><a href='#' class='delete-idea'>Delete</a></div></div>"

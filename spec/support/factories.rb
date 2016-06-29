@@ -6,9 +6,9 @@ FactoryGirl.define do
     sequence :body do |n|
       "Generic Body #{n}"
     end
-    sequence :quality, ['Swill',
-                        'Plausible',
-                        'Genius'].cycle do |quality|
+    sequence :quality, ['swill',
+                        'plausible',
+                        'genius'].cycle do |quality|
       quality
     end
   end
