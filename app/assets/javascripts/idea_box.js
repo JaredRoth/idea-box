@@ -4,8 +4,8 @@ $(document).ready(function(){
   $("#ideas").on('click', '.delete-idea', deleteIdea);
   $("#ideas").on('click', '.thumb_up', {direction: "up"}, changeThumb);
   $("#ideas").on('click', '.thumb_down', {direction: "down"}, changeThumb);
-  $("#ideas").on('click', '.title', editTitle);
-  $("#ideas").on('click', '.body', editBody);
+  $("#ideas").on('click', '.title', editIdea);
+  $("#ideas").on('click', '.body', editIdea);
   // $("#ideas").on('click', '.thumb_up', thumbUp)
   // $("#ideas").on('click', '.thumb_down', thumbDown)
 });
@@ -89,11 +89,12 @@ function thumbDown() {
   })
 }
 
-function editTitle() {
-  var old = $(this).text();
-  var text = $(this)
-  this.setAttribute('contentEditable', 'true');
+function editIdea() {
+  var oldText = $(this).text();
+  var div = $(this);
+  var field = this.className;
   var ideaId = $(this).parents('.idea').data('id');
+  this.setAttribute('contentEditable', 'true');
 
   $(this).on('blur', function(event){
     this.setAttribute('contentEditable', 'false')
@@ -101,8 +102,8 @@ function editTitle() {
       method: 'PATCH',
       url: '/api/v1/ideas/' + ideaId,
       dataType: "JSON",
-      data: {body: $(this).text()},
-      error: function(){text.html(old)}
+      data: {[field]: $(this).text()},
+      error: function(){div.html(oldText)}
     })
   });
 }
