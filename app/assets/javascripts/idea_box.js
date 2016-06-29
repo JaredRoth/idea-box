@@ -51,7 +51,7 @@ function deleteIdea() {
 
 function changeThumb(params) {
   var ideaId = $(this).parents('.idea').data('id');
-  var quality = $(this).siblings('.quality')
+  var quality = $(this).parent().siblings('.quality')
   var change = params.data.direction === "up" ? "1" : "-1";
 
   $.ajax({
@@ -67,7 +67,8 @@ function editIdea() {
   var ideaId = $(this).parents('.idea').data('id');
   var oldText = $(this).text();
   var div = $(this);
-  var field = this.className;
+  var field = _.last(this.classList);
+
   this.setAttribute('contentEditable', 'true');
 
   $(this).on('blur', function(event){
@@ -94,12 +95,22 @@ function showQualityChange(quality, direction) {
 }
 
 function printIdea(idea) {
-  return "<div class='idea row' id='idea" + idea.id + "' data-id='" + idea.id + "'>" +
-            "<div class='title'>" + idea.title + "</div>" +
-            "<div class='body'>" + idea.body + "</div>" +
-            "Quality: <span class='quality'>" + _.capitalize(idea.quality) + "</span>" +
-            " <i class='tiny material-icons thumb_down'>thumb_down</i> " +
-            "<i class='tiny material-icons thumb_up'>thumb_up</i>" +
-            "<div><a href='#' class='delete-idea'>Delete</a></div>" +
+  return "<div class='row'>" +
+            "<div class='idea row' id='idea" + idea.id + "' data-id='" + idea.id + "'>" +
+              "<div class='card blue-grey darken-1'>" +
+                "<div class='card-content white-text'>" +
+                  "<span class='card-title hoverable title'>" + idea.title + "</span>" +
+                  "<a href='#' class='delete-idea right chip'>Delete</a>" +
+                  "<p class='hoverable body'>"+ idea.body + "</p>" +
+                "</div>" +
+                "<div class='white-text card-action'>" +
+                  "<span class='quality'>" + _.capitalize(idea.quality) + "</span>" +
+                  "<div class='right'>" +
+                    "<i class='small material-icons thumb_up'>thumb_up</i>" +
+                    "<i class='small material-icons right thumb_down'>thumb_down</i>" +
+                  "</div>" +
+                "</div>" +
+              "</div>" +
+            "</div>" +
           "</div>"
 }
