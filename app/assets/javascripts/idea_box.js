@@ -2,8 +2,10 @@ $(document).ready(function(){
   getIdeas();
   $("#create-idea").on('click', createIdea)
   $("#ideas").on('click', '.delete-idea', deleteIdea)
-  $("#ideas").on('click', '.thumb_up', thumbUp)
-  $("#ideas").on('click', '.thumb_down', thumbDown)
+  $("#ideas").on('click', '.thumb_up', {direction: "up"}, changeThumb)
+  $("#ideas").on('click', '.thumb_down', {direction: "down"}, changeThumb)
+  // $("#ideas").on('click', '.thumb_up', thumbUp)
+  // $("#ideas").on('click', '.thumb_down', thumbDown)
 });
 
 function getIdeas(){
@@ -44,6 +46,20 @@ function deleteIdea() {
     success: function(){
       $(".idea[data-id="+ideaId+"]").remove();
     }
+  })
+}
+
+function changeThumb(params) {
+  var ideaId = $(this).parents('.idea').data('id');
+  var quality = $(this).siblings('.quality')
+  var change = params.data.direction === "up" ? "1" : "-1";
+
+  $.ajax({
+    method: 'PATCH',
+    url: '/api/v1/ideas/' + ideaId,
+    dataType: "JSON",
+    data: {amount: change},
+    success: function(){showQualityChange(quality, params.data.direction)}
   })
 }
 
