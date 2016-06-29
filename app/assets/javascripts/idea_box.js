@@ -6,8 +6,6 @@ $(document).ready(function(){
   $("#ideas").on('click', '.thumb_down', {direction: "down"}, changeThumb);
   $("#ideas").on('click', '.title', editIdea);
   $("#ideas").on('click', '.body', editIdea);
-  // $("#ideas").on('click', '.thumb_up', thumbUp)
-  // $("#ideas").on('click', '.thumb_down', thumbDown)
 });
 
 function getIdeas(){
@@ -65,35 +63,11 @@ function changeThumb(params) {
   })
 }
 
-function thumbUp() {
-  var ideaId = $(this).parents('.idea').data('id');
-  var quality = $(this).siblings('.quality')
-  $.ajax({
-    method: 'PATCH',
-    url: '/api/v1/ideas/' + ideaId,
-    dataType: "JSON",
-    data: {amount: '1'},
-    success: function(){showQualityChange(quality, "up")}
-  })
-}
-
-function thumbDown() {
-  var ideaId = $(this).parents('.idea').data('id');
-  var quality = $(this).siblings('.quality')
-  $.ajax({
-    method: 'PATCH',
-    url: '/api/v1/ideas/' + ideaId,
-    dataType: "JSON",
-    data: {amount: '-1'},
-    success: function(){showQualityChange(quality, "down")}
-  })
-}
-
 function editIdea() {
+  var ideaId = $(this).parents('.idea').data('id');
   var oldText = $(this).text();
   var div = $(this);
   var field = this.className;
-  var ideaId = $(this).parents('.idea').data('id');
   this.setAttribute('contentEditable', 'true');
 
   $(this).on('blur', function(event){
