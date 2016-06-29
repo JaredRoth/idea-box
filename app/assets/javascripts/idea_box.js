@@ -74,13 +74,12 @@ function thumbDown() {
 function showQualityChange(quality, direction) {
   var up = {  "Swill": "Plausible",
               "Plausible": "Genius",
-              "Genius": "Genius"}
+              "Genius": "Genius"};
   var down = {"Swill": "Swill",
               "Plausible": "Swill",
-              "Genius": "Plausible"}
-  var oldQuality = quality.text()
-  var newQuality = eval(direction)[oldQuality]
-  quality.text(newQuality)
+              "Genius": "Plausible"};
+  var oldQuality = quality.text();
+  quality.text(eval(direction)[oldQuality]);
 }
 
 function printIdea(idea) {
