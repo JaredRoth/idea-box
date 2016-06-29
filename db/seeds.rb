@@ -5,3 +5,6 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+Idea.create(title: "Swill?", body:"Yes, Swill")
+Idea.create(title: "Plausible?", body:"No, Swill")
+Idea.create(title: "Genius?", body:"Still Swill")

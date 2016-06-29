@@ -1,6 +1,7 @@
 $(document).ready(function(){
   getIdeas();
   $("#create-idea").on('click', createIdea)
+  $("#ideas").on('click', '.delete-idea', deleteIdea)
 });
 
 function getIdeas(){
@@ -10,15 +11,10 @@ function getIdeas(){
 }
 
 function renderIdeas(ideas) {
-  $(ideas).each(function(index, idea){renderIdea(index, idea)})
+  $(ideas).each(function(index, idea){
+    $("#ideas").append(printIdea(idea));
+  });
 }
-
-function renderIdea(index, idea){
-  $("#ideas").append(
-    "<div class='idea row' id='idea" + idea.id + "'><div class='title'>" +
-    idea.title + "</div><div class='body'>" + idea.body + "</div>"
-  );
-};
 
 function createIdea(){
   var ideaTitle = $("#new-idea #title").val();
@@ -30,12 +26,27 @@ function createIdea(){
     dataType: "JSON",
     data: ideaData,
     success: function(idea){
-      $("#ideas").prepend(
-        "<div class='idea row' id='idea" + idea.id + "'><div class='title'>" +
-        idea.title + "</div><div class='body'>" + idea.body + "</div>"
-      );
+      $("#ideas").prepend(printIdea(idea));
     }
   });
   $("#new-idea #title").val('');
   $("#new-idea #body").val('');
+}
+
+function deleteIdea() {
+  var ideaId = $(this).parent().data('idea-id');
+  $.ajax({
+    method: "DELETE",
+    url: '/api/v1/ideas/' + ideaId,
+    dataType: "JSON",
+    success: function(){
+      $(".idea[data-idea-id="+ideaId+"]").remove();
+    }
+  })
+}
+
+function printIdea(idea) {
+  return "<div class='idea row' id='idea" + idea.id + "' data-idea-id='" +
+  idea.id + "'><div class='title'>" + idea.title + "</div><div class='body'>" +
+  idea.body + "</div><a href='#' class='delete-idea'>Delete</a></div>"
 }
