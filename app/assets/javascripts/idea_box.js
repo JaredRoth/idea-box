@@ -1,9 +1,13 @@
 $(document).ready(function(){
   getIdeas();
-  $("#create-idea").on('click', createIdea)
-  $("#ideas").on('click', '.delete-idea', deleteIdea)
-  $("#ideas").on('click', '.thumb_up', thumbUp)
-  $("#ideas").on('click', '.thumb_down', thumbDown)
+  $("#create-idea").on('click', createIdea);
+  $("#ideas").on('click', '.delete-idea', deleteIdea);
+  $("#ideas").on('click', '.thumb_up', {direction: "up"}, changeThumb);
+  $("#ideas").on('click', '.thumb_down', {direction: "down"}, changeThumb);
+  $("#ideas").on('click', '.title', editIdea);
+  $("#ideas").on('click', '.body', editIdea);
+  // $("#ideas").on('click', '.thumb_up', thumbUp)
+  // $("#ideas").on('click', '.thumb_down', thumbDown)
 });
 
 function getIdeas(){
@@ -47,6 +51,20 @@ function deleteIdea() {
   })
 }
 
+function changeThumb(params) {
+  var ideaId = $(this).parents('.idea').data('id');
+  var quality = $(this).siblings('.quality')
+  var change = params.data.direction === "up" ? "1" : "-1";
+
+  $.ajax({
+    method: 'PATCH',
+    url: '/api/v1/ideas/' + ideaId,
+    dataType: "JSON",
+    data: {amount: change},
+    success: function(){showQualityChange(quality, params.data.direction)}
+  })
+}
+
 function thumbUp() {
   var ideaId = $(this).parents('.idea').data('id');
   var quality = $(this).siblings('.quality')
@@ -69,6 +87,25 @@ function thumbDown() {
     data: {amount: '-1'},
     success: function(){showQualityChange(quality, "down")}
   })
+}
+
+function editIdea() {
+  var oldText = $(this).text();
+  var div = $(this);
+  var field = this.className;
+  var ideaId = $(this).parents('.idea').data('id');
+  this.setAttribute('contentEditable', 'true');
+
+  $(this).on('blur', function(event){
+    this.setAttribute('contentEditable', 'false')
+    $.ajax({
+      method: 'PATCH',
+      url: '/api/v1/ideas/' + ideaId,
+      dataType: "JSON",
+      data: {[field]: $(this).text()},
+      error: function(){div.html(oldText)}
+    })
+  });
 }
 
 function showQualityChange(quality, direction) {

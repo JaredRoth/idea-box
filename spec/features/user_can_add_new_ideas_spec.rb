@@ -6,10 +6,13 @@ RSpec.feature "User can add new ideas" do
 
     visit root_path
 
-    fill_in 'title', with:'Best Idea Evar'
-    fill_in 'body', with:'Sharks with frikin lazer beams'
-    click_on 'Save'
+    within("#new-idea") do
+      fill_in 'title', with:'Best Idea Evar'
+      fill_in 'body', with:'Sharks with frikin lazer beams'
+    end
 
+    click_on 'Save'
+    
     within("#idea4") do
       expect(page).to have_content("Best Idea Evar")
       expect(page).to have_content("Sharks with frikin lazer beams")
