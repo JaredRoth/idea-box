@@ -9,6 +9,10 @@ class Api::V1::IdeasController < Api::ApiController
     respond_with :api, :v1, Idea.create(idea_params)
   end
 
+  def destroy
+    respond_with status: 204 if Idea.delete(params[:id])
+  end
+
   private
 
   def idea_params
