@@ -8,9 +8,9 @@ RSpec.feature "User can alter idea quality" do
       visit root_path
 
       within("#idea1") do
-        expect(".quality").to have_content("Swill")
-        click_on "thumb_up"
-        expect(".quality").to have_content("Plausible")
+        expect(page).to have_content("Swill")
+        find('.thumb_up', text: 'thumb_up').click
+        expect(page).to have_content("Plausible")
       end
     end
   end
@@ -21,9 +21,9 @@ RSpec.feature "User can alter idea quality" do
       visit root_path
 
       within("#idea1") do
-        expect(".quality").to have_content("Genius")
-        click_on "thumb_up"
-        expect(".quality").to have_content("Genius")
+        expect(page).to have_content("Genius")
+        find('.thumb_up', text: 'thumb_up').click
+        expect(page).to have_content("Genius")
       end
     end
   end
@@ -34,9 +34,9 @@ RSpec.feature "User can alter idea quality" do
       visit root_path
 
       within("#idea1") do
-        expect(".quality").to have_content("Genius")
-        click_on "thumb_down"
-        expect(".quality").to have_content("Plausible")
+        expect(page).to have_content("Genius")
+        find('.thumb_down', text: 'thumb_down').click
+        expect(page).to have_content("Plausible")
       end
     end
   end
@@ -46,9 +46,9 @@ RSpec.feature "User can alter idea quality" do
 
       visit root_path
       within("#idea1") do
-        expect(".quality").to have_content("Swill")
-        click_on "thumb_down"
-        expect(".quality").to have_content("Swill")
+        expect(page).to have_content("Swill")
+        find('.thumb_down', text: 'thumb_down').click
+        expect(page).to have_content("Swill")
       end
     end
   end

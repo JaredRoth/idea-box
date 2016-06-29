@@ -83,10 +83,12 @@ function showQualityChange(quality, direction) {
 }
 
 function printIdea(idea) {
-  return "<div class='idea row' id='idea" + idea.id + "' data-id='" + idea.id +
-  "'><div class='title'>" + idea.title + "</div><div class='body'>" + idea.body +
-  "</div>" + "Quality: <span class='quality'>" + _.capitalize(idea.quality) + "</span>" +
-  " <i class='tiny material-icons thumb_down'>thumb_down</i> " +
-  "<i class='tiny material-icons thumb_up'>thumb_up</i>" +
-  "<div><a href='#' class='delete-idea'>Delete</a></div></div>"
+  return "<div class='idea row' id='idea" + idea.id + "' data-id='" + idea.id + "'>" +
+            "<div class='title'>" + idea.title + "</div>" +
+            "<div class='body'>" + idea.body + "</div>" +
+            "Quality: <span class='quality'>" + _.capitalize(idea.quality) + "</span>" +
+            " <i class='tiny material-icons thumb_down'>thumb_down</i> " +
+            "<i class='tiny material-icons thumb_up'>thumb_up</i>" +
+            "<div><a href='#' class='delete-idea'>Delete</a></div>" +
+          "</div>"
 }
