@@ -1,9 +1,11 @@
 $(document).ready(function(){
   getIdeas();
-  $("#create-idea").on('click', createIdea)
-  $("#ideas").on('click', '.delete-idea', deleteIdea)
-  $("#ideas").on('click', '.thumb_up', {direction: "up"}, changeThumb)
-  $("#ideas").on('click', '.thumb_down', {direction: "down"}, changeThumb)
+  $("#create-idea").on('click', createIdea);
+  $("#ideas").on('click', '.delete-idea', deleteIdea);
+  $("#ideas").on('click', '.thumb_up', {direction: "up"}, changeThumb);
+  $("#ideas").on('click', '.thumb_down', {direction: "down"}, changeThumb);
+  $("#ideas").on('click', '.title', editTitle);
+  $("#ideas").on('click', '.body', editBody);
   // $("#ideas").on('click', '.thumb_up', thumbUp)
   // $("#ideas").on('click', '.thumb_down', thumbDown)
 });
@@ -85,6 +87,24 @@ function thumbDown() {
     data: {amount: '-1'},
     success: function(){showQualityChange(quality, "down")}
   })
+}
+
+function editTitle() {
+  var old = $(this).text();
+  var text = $(this)
+  this.setAttribute('contentEditable', 'true');
+  var ideaId = $(this).parents('.idea').data('id');
+
+  $(this).on('blur', function(event){
+    this.setAttribute('contentEditable', 'false')
+    $.ajax({
+      method: 'PATCH',
+      url: '/api/v1/ideas/' + ideaId,
+      dataType: "JSON",
+      data: {body: $(this).text()},
+      error: function(){text.html(old)}
+    })
+  });
 }
 
 function showQualityChange(quality, direction) {

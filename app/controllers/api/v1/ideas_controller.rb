@@ -18,7 +18,7 @@ class Api::V1::IdeasController < Api::ApiController
     unless (idea.genius? && params[:amount] == '1') || (idea.swill? && params[:amount] == '-1')
       idea.increment!(:quality, params[:amount].to_i)
     end
-    respond_with idea
+    respond_with idea if idea.update(idea_params)
   end
 
   private
