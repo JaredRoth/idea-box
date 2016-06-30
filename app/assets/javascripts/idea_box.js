@@ -6,6 +6,7 @@ $(document).ready(function(){
   $("#ideas").on('click', '.thumb_down', {direction: "down"}, changeThumb);
   $("#ideas").on('click', '.title', editIdea);
   $("#ideas").on('click', '.body', editIdea);
+  $("#search").on('keyup', searchIdeas);
 });
 
 function getIdeas(){
@@ -80,6 +81,18 @@ function editIdea() {
       data: {[field]: $(this).text()},
       error: function(){div.html(oldText)}
     })
+  });
+}
+
+function searchIdeas() {
+  var filter = $(this).val();
+
+  $(".card-content").each(function(){
+    if ($(this).text().search(new RegExp(filter, "i")) < 0) {
+      $(this).parent().fadeOut();
+    } else {
+      $(this).parent().show();
+    }
   });
 }
 
