@@ -6,8 +6,7 @@ $(document).ready(function(){
   $("#ideas").on('click', '.thumb_down', {direction: "down"}, changeThumb);
   $("#ideas").on('click', '.title', editIdea);
   $("#ideas").on('click', '.body', editIdea);
-  // $("#ideas").on('click', '.thumb_up', thumbUp)
-  // $("#ideas").on('click', '.thumb_down', thumbDown)
+  $("#search").on('keyup', searchIdeas);
 });
 
 function getIdeas(){
@@ -66,10 +65,11 @@ function changeThumb(params) {
 }
 
 function editIdea() {
+  var ideaId = $(this).parents('.idea').data('id');
   var oldText = $(this).text();
   var div = $(this);
   var field = _.last(this.classList);
-  var ideaId = $(this).parents('.idea').data('id');
+
   this.setAttribute('contentEditable', 'true');
 
   $(this).on('blur', function(event){
@@ -81,6 +81,18 @@ function editIdea() {
       data: {[field]: $(this).text()},
       error: function(){div.html(oldText)}
     })
+  });
+}
+
+function searchIdeas() {
+  var filter = $(this).val();
+
+  $(".card-content").each(function(){
+    if ($(this).text().search(new RegExp(filter, "i")) < 0) {
+      $(this).parent().hide();
+    } else {
+      $(this).parent().show();
+    }
   });
 }
 

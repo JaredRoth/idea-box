@@ -13,7 +13,7 @@ RSpec.feature "User can edit idea content" do
         title.set("New Title")
       end
       find('h4').click
-      sleep(1)
+      sleep(0.5)
       expect(page).to have_content(idea.body)
       expect(page).to have_content("New Title")
 
@@ -33,7 +33,7 @@ RSpec.feature "User can edit idea content" do
         body.set("New Body")
       end
       find('h4').click
-      sleep(1)
+      sleep(0.5)
       expect(page).to have_content(idea.title)
       expect(page).to have_content("New Body")
 
