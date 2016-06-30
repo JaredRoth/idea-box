@@ -4,11 +4,11 @@ $(document).ready(function(){
   $(".materialize-textarea").on('keydown', function(event){
     if ((event.keyCode == 13 || event.keyCode == 13) && event.ctrlKey){createIdea()}
   });
-  $("#ideas").on('click', '.delete-idea', deleteIdea);
-  $("#ideas").on('click', '.thumb_up', {direction: "up"}, changeThumb);
-  $("#ideas").on('click', '.thumb_down', {direction: "down"}, changeThumb);
-  $("#ideas").on('click', '.title', editIdea);
-  $("#ideas").on('click', '.body', editIdea);
+  $("#ideas").on('click', '.delete-idea', deleteIdea)
+             .on('click', '.thumb_up', {direction: "up"}, changeThumb)
+             .on('click', '.thumb_down', {direction: "down"}, changeThumb)
+             .on('click', '.title, .body', editIdea)
+             .on('keydown focusout', '.title, .body', updateIdea);
   $("#search").on('keyup', searchIdeas);
 });
 
@@ -68,48 +68,49 @@ function changeThumb(params) {
 }
 
 function editIdea() {
+  this.setAttribute('contentEditable', 'true');
+}
+
+function updateIdea(event){
   var ideaId = $(this).parents('.idea').data('id');
   var oldText = $(this).text();
   var div = $(this);
   var field = _.last(this.classList);
-
-  this.setAttribute('contentEditable', 'true');
-
-  $(this).on('keydown blur', function(event){
-    if (event.keyCode == 10 || event.keyCode == 13 || event.type == "blur"){
-      this.setAttribute('contentEditable', 'false')
-      $.ajax({
-        method: 'PATCH',
-        url: '/api/v1/ideas/' + ideaId,
-        dataType: "JSON",
-        data: {[field]: $(this).text()},
-        error: function(){div.html(oldText)}
-      })
-    }
-  });
+  if (event.keyCode == 10 || event.keyCode == 13 || event.type == "focusout"){
+    this.setAttribute('contentEditable', 'false')
+    $.ajax({
+      method: 'PATCH',
+      url: '/api/v1/ideas/' + ideaId,
+      dataType: "JSON",
+      data: {[field]: $(this).text()},
+      error: function(){div.html(oldText)}
+    })
+  }
 }
 
 function searchIdeas() {
   var filter = $(this).val();
 
-  $(".card-content").each(function(){
+  $(".card-content").children(".hoverable").each(function(){
     if ($(this).text().search(new RegExp(filter, "i")) < 0) {
-      $(this).parent().hide();
+      $(this).parents(".idea").hide();
     } else {
-      $(this).parent().show();
+      $(this).parents(".idea").show();
     }
   });
 }
 
 function showQualityChange(quality, direction) {
-  var up = {  "Swill": "Plausible",
-              "Plausible": "Genius",
-              "Genius": "Genius"};
-  var down = {"Swill": "Swill",
-              "Plausible": "Swill",
-              "Genius": "Plausible"};
+  var hashes = {
+    up: { "Swill": "Plausible",
+          "Plausible": "Genius",
+          "Genius": "Genius"},
+  down: { "Swill": "Swill",
+          "Plausible": "Swill",
+          "Genius": "Plausible"}
+  }
   var oldQuality = quality.text();
-  quality.text(eval(direction)[oldQuality]);
+  quality.text(hashes[direction][oldQuality]);
 }
 
 function printIdea(idea) {
