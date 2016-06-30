@@ -1,6 +1,9 @@
 $(document).ready(function(){
   getIdeas();
   $("#create-idea").on('click', createIdea);
+  $(".materialize-textarea").on('keydown', function(event){
+    if ((event.keyCode == 13 || event.keyCode == 13) && event.ctrlKey){createIdea()}
+  });
   $("#ideas").on('click', '.delete-idea', deleteIdea);
   $("#ideas").on('click', '.thumb_up', {direction: "up"}, changeThumb);
   $("#ideas").on('click', '.thumb_down', {direction: "down"}, changeThumb);
@@ -72,15 +75,17 @@ function editIdea() {
 
   this.setAttribute('contentEditable', 'true');
 
-  $(this).on('blur', function(event){
-    this.setAttribute('contentEditable', 'false')
-    $.ajax({
-      method: 'PATCH',
-      url: '/api/v1/ideas/' + ideaId,
-      dataType: "JSON",
-      data: {[field]: $(this).text()},
-      error: function(){div.html(oldText)}
-    })
+  $(this).on('keydown', function(event){
+    if ((event.keyCode == 10 || event.keyCode == 13)){
+      this.setAttribute('contentEditable', 'false')
+      $.ajax({
+        method: 'PATCH',
+        url: '/api/v1/ideas/' + ideaId,
+        dataType: "JSON",
+        data: {[field]: $(this).text()},
+        error: function(){div.html(oldText)}
+      })
+    }
   });
 }
 
@@ -116,7 +121,7 @@ return "<div class='idea row' id='idea" + idea.id + "' data-id='" + idea.id + "'
               "<p class='hoverable body'>"+ idea.body + "</p>" +
             "</div>" +
             "<div class='white-text card-action'>" +
-              "<span class='quality'>" + _.capitalize(idea.quality) + "</span>" +
+              "Idea Quality: <span class='quality'>" + _.capitalize(idea.quality) + "</span>" +
               "<div class='right'>" +
                 "<i class='small material-icons thumb_up'>thumb_up</i>" +
                 "<i class='small material-icons right thumb_down'>thumb_down</i>" +
