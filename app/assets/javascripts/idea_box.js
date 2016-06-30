@@ -91,8 +91,8 @@ function updateIdea(event){
 function searchIdeas() {
   var filter = $(this).val();
 
-  $(".card-content").not('a').each(function(){
-    if ($(this).text().search(new RegExp(filter, "i")) < 0) {
+  $(".card-content").each(function(){
+    if ($(this).clone().children('a').remove().end().text().search(new RegExp(filter, "i")) < 0) {
       $(this).parents(".idea").hide();
     } else {
       $(this).parents(".idea").show();
