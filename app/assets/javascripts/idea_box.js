@@ -75,8 +75,8 @@ function editIdea() {
 
   this.setAttribute('contentEditable', 'true');
 
-  $(this).on('keydown', function(event){
-    if ((event.keyCode == 10 || event.keyCode == 13)){
+  $(this).on('keydown blur', function(event){
+    if (event.keyCode == 10 || event.keyCode == 13 || event.type == "blur"){
       this.setAttribute('contentEditable', 'false')
       $.ajax({
         method: 'PATCH',
