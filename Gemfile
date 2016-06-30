@@ -30,3 +30,5 @@ group :test do
   gem 'mocha'
   gem 'simplecov', :require => false
 end
+
+gem 'rails_12factor', group: :production
