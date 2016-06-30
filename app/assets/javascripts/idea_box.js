@@ -108,22 +108,20 @@ function showQualityChange(quality, direction) {
 }
 
 function printIdea(idea) {
-  return "<div class='row'>" +
-            "<div class='idea row' id='idea" + idea.id + "' data-id='" + idea.id + "'>" +
-              "<div class='card blue-grey darken-1'>" +
-                "<div class='card-content white-text'>" +
-                  "<span class='card-title hoverable title'>" + idea.title + "</span>" +
-                  "<a href='#' class='delete-idea right chip'>Delete</a>" +
-                  "<p class='hoverable body'>"+ idea.body + "</p>" +
-                "</div>" +
-                "<div class='white-text card-action'>" +
-                  "<span class='quality'>" + _.capitalize(idea.quality) + "</span>" +
-                  "<div class='right'>" +
-                    "<i class='small material-icons thumb_up'>thumb_up</i>" +
-                    "<i class='small material-icons right thumb_down'>thumb_down</i>" +
-                  "</div>" +
-                "</div>" +
+return "<div class='idea row' id='idea" + idea.id + "' data-id='" + idea.id + "'>" +
+          "<div class='card blue-grey darken-1'>" +
+            "<div class='card-content white-text'>" +
+              "<span class='card-title hoverable title'>" + idea.title + "</span>" +
+              "<a href='#' class='delete-idea right chip'>Delete</a>" +
+              "<p class='hoverable body'>"+ idea.body + "</p>" +
+            "</div>" +
+            "<div class='white-text card-action'>" +
+              "<span class='quality'>" + _.capitalize(idea.quality) + "</span>" +
+              "<div class='right'>" +
+                "<i class='small material-icons thumb_up'>thumb_up</i>" +
+                "<i class='small material-icons right thumb_down'>thumb_down</i>" +
               "</div>" +
             "</div>" +
-          "</div>"
+          "</div>" +
+        "</div>"
 }
