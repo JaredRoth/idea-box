@@ -2,7 +2,7 @@ $(document).ready(function(){
   getIdeas();
   $("#create-idea").on('click', createIdea);
   $(".materialize-textarea").on('keydown', function(event){
-    if ((event.keyCode == 13 || event.keyCode == 13) && event.ctrlKey){createIdea()}
+    if ((event.keyCode == 13 || event.keyCode == 13) && event.ctrlKey){createIdea();}
   });
   $("#ideas").on('click', '.delete-idea', deleteIdea)
              .on('click', '.thumb_up', {direction: "up"}, changeThumb)
@@ -50,12 +50,12 @@ function deleteIdea() {
     success: function(){
       $(".idea[data-id="+ideaId+"]").remove();
     }
-  })
+  });
 }
 
 function changeThumb(params) {
   var ideaId = $(this).parents('.idea').data('id');
-  var quality = $(this).parent().siblings('.quality')
+  var quality = $(this).parent().siblings('.quality');
   var change = params.data.direction === "up" ? "1" : "-1";
 
   $.ajax({
@@ -63,8 +63,8 @@ function changeThumb(params) {
     url: '/api/v1/ideas/' + ideaId,
     dataType: "JSON",
     data: {amount: change},
-    success: function(){showQualityChange(quality, params.data.direction)}
-  })
+    success: function(){showQualityChange(quality, params.data.direction);}
+  });
 }
 
 function editIdea() {
@@ -77,14 +77,14 @@ function updateIdea(event){
   var div = $(this);
   var field = _.last(this.classList);
   if (event.keyCode == 10 || event.keyCode == 13 || event.type == "focusout"){
-    this.setAttribute('contentEditable', 'false')
+    this.setAttribute('contentEditable', 'false');
     $.ajax({
       method: 'PATCH',
       url: '/api/v1/ideas/' + ideaId,
       dataType: "JSON",
       data: {[field]: $(this).text()},
-      error: function(){div.html(oldText)}
-    })
+      error: function(){div.html(oldText);}
+    });
   }
 }
 
@@ -108,7 +108,7 @@ function showQualityChange(quality, direction) {
   down: { "Swill": "Swill",
           "Plausible": "Swill",
           "Genius": "Plausible"}
-  }
+  };
   var oldQuality = quality.text();
   quality.text(hashes[direction][oldQuality]);
 }
@@ -129,5 +129,5 @@ return "<div class='idea row' id='idea" + idea.id + "' data-id='" + idea.id + "'
               "</div>" +
             "</div>" +
           "</div>" +
-        "</div>"
+        "</div>";
 }
